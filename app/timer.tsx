@@ -1,10 +1,16 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { formatDistanceToNow } from "date-fns";
+import { formatDuration, intervalToDuration } from "date-fns";
 
 const getTime = () => {
-  return formatDistanceToNow(new Date(2024, 0, 1));
+  const duration = intervalToDuration({
+    start: new Date(2024, 0, 1),
+    end: new Date(),
+  });
+  return formatDuration(duration, {
+    delimiter: ", ",
+  });
 };
 
 export default function Timer() {
@@ -21,8 +27,10 @@ export default function Timer() {
   }, []);
 
   return (
-    <p className="mt-8">
-      <span className="text-9xl font-bold text-white">{time}</span>
+    <p className="mt-4 text-center">
+      <span className="text-2xl md:text-3xl lg:text-4xl xl:text-6xl font-bold text-white">
+        {time}
+      </span>
     </p>
   );
 }
